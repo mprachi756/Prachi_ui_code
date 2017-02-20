@@ -1,0 +1,13 @@
+{
+  "helloworld": {
+    "title": "Contacts",
+    "home": "home",
+    "list": "Contact List"
+  },
+  "error": {
+    "analytics.notFound": {
+      "title": "Analytics Data Not Found",
+      "message": "An error has occured during the approval process. Please contact your system administrator."
+    }
+  }
+}

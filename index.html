@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en-us" ng-app="sample-ui">
+
+<head>
+  <title>AngularJS Sample Application</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta charset="UTF-10">
+
+  <!-- load bootstrap and fontawesome via CDN -->
+  <link rel="stylesheet" href="bootstrap.css" />
+  <script src="jquery-3.1.1.js"></script>
+  <script src="bootstrap.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.5/nv.d3.min.css' />
+  <style>
+    #sec1 {
+      padding-left: 0px;
+    }
+    
+    #msg {
+      font-size: 500%;
+      text-align: center;
+    }
+    
+    #greet {
+      font-size: 300%;
+      text-align: center;
+    }
+    
+    #cLink {
+      text-align: center;
+      display: block;
+      font-size: 200%;
+    }
+    
+    #hme {
+      background-color: #32cd65;
+    }
+    
+    #grph2 {
+      text-align: center;
+    }
+  </style>
+
+  <!-- load angular via CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-resource.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/restangular/1.5.1/restangular.min.js"></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.0/d3.js'></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.5/nv.d3.min.js"></script>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-nvd3/1.0.9/angular-nvd3.min.js"></script>
+  <script src="app/sample.module.js"></script>
+  <script src="app/sample.routes.js"></script>
+  <script src='app/restAngular.js'></script>
+  <script src='app/home/sampleHomeCtrl.js'></script>
+  <script src='app/contact/sampleContactCtrl.js'></script>
+
+  <script type="text/ng-template" id="main.html">
+ <section id='hme' class='col-sm-10 col-sm-offset-1'>
+  <div class="row">
+    <div class="col-sm-12">
+      <h1 id='greet'>{{home.greet}}</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <h1 id='msg'>{{home.msg}}</h1>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-sm-12">
+      <a id='cLink' ui-sref="contact">My Contact List</a>
+    </div>
+  </div>
+</section>
+
+</script>
+  <script type="text/ng-template" id="contact-list.html">
+<section class='col-sm-10 col-sm-offset-1'>
+  <form class="form-horizontal">
+    <div class='row'>
+      <div class="form-group">
+      <h1 class="col-sm-10">Create New Contact</h1>
+      </div>
+    </div>
+  
+  <div class="row">
+    
+      <div class='form-group'>
+        <div class='col-sm-8'>
+           <label for="firstName" class="left inline">First Name</label>
+           <input type="text" class='form-control' id="firstName" placehoder="First Name" ng-model="hello.firstName">
+        </div>
+    </div>
+      <div class='form-group'>
+        <div class="col-sm-8">
+          <label for="lastName" class="left inline">Last Name</label>
+            <input type="text" class='form-control' id="lastName" placehoder="Last Name" ng-model="hello.lastName">
+           </div>
+        </div>
+      <div class='form-group'>
+        <div class="col-sm-8">
+           <label for="email" class="left inline">E-Mail</label>
+           <input type="text"  class='form-control' id="email" placehoder="E-Mail" ng-model="hello.email">
+        </div>
+      </div>
+      <div class='form-group'>
+        <div class="col-sm-8">
+             <label for="phone" class="left inline">Phone</label>
+             <input type="text" class='form-control' id="phone" placehoder="Phone" ng-model="hello.phone">
+        </div>
+    </div>
+     <div class='form-group'>
+        <div class="col-sm-8">
+           <label for="email" class="left inline">Your E-Mail</label>
+           <input type="text"  class='form-control' id="email" placehoder=" Your E-Mail" ng-model="hello.api_key">
+        </div>
+      </div> 
+      <div class="row">
+        <div class="col-sm-10">
+          <button type="button" class="btn btn-primary" ng-click="hello.save()">Create</button>
+        </div>
+      </div>
+      </div>
+    </div>
+    </div>
+  </form>
+</section>
+
+<section id= 'sec1' class="col-sm-12">
+  <div class="row">
+    
+    <div class="col-sm-10 col-sm-push-1">
+      <h1>My Contact List</h1>
+    </div>
+    
+  </div>
+  <div class="row">
+    <div class='col-sm-10 col-sm-offset-1'>
+    <table class='table table-striped'>
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Phone Number</th>
+          <th>E-Mail Address</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat='user in hello.users'>
+        <td>{{user.first_name}}</td>
+        <td>{{user.last_name}}</td>
+        <td>{{user.phone}}</td>
+        <td>{{user.email}}</td>
+      </tr>
+      </tbody>
+      
+    </table>
+    <button type='button' class='btn btn-danger' ng-click='hello.delete()'>Reset</button>
+    </div>
+  </div>
+</section>
+
+
+</script>
+  
+
+</head>
+
+<body>
+
+  <header>
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">AngularJS Sample</a>
+        </div>
+
+        <ul class="nav navbar-nav navbar-right">
+          <li><a ui-sref="home">Home</a></li>
+          <li><a ui-sref="contact">Contacts</a></li>
+        </ul>
+      </div>
+  </header>
+
+  <div>
+
+    <ui-view></ui-view>
+
+  </div>
+
+</body>
+
+</html>
